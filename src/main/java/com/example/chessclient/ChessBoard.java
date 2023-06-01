@@ -85,6 +85,10 @@ public class ChessBoard extends GridPane {
 
     }
 
+    public ChessSquare getSquare(int col, int row){
+        ChessSquare square = (ChessSquare) this.getChildren().get((row - 1) * 8 + (col - 1));
+        return square;
+    }
     public ChessPiece getPieceOnSquare(int col, int row){
         ChessSquare square = (ChessSquare) this.getChildren().get((row - 1) * 8 + (col - 1));
         return square.getPiece();
@@ -97,9 +101,12 @@ public class ChessBoard extends GridPane {
         ChessSquare fromSquare = (ChessSquare) this.getChildren().get((fromRow-1)*8 + (fromCol -1));
         ChessSquare toSquare = (ChessSquare) this.getChildren().get((toRow-1)*8 + (toCol -1));
 
-        if(pieceFromOriginalPos.isMoveToPositionLegal(toCol,toRow)){
-            fromSquare.replacePiece(null);
-            toSquare.replacePiece(pieceFromOriginalPos);
+        //check if new Square is occupied by same color
+        if(!toSquare.isSquareOccupiedByColor(pieceFromOriginalPos.getColor())) {
+            if (pieceFromOriginalPos.isMoveToPositionLegal(toCol, toRow)) {
+                fromSquare.replacePiece(null);
+                toSquare.replacePiece(pieceFromOriginalPos);
+            }
         }
         else{
             System.out.println("move not legal error");
