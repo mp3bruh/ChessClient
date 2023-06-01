@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import com.example.chessclient.ChessBoard?>
+<BorderPane fx:id="bp" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.chessclient.HelloController">
+    <top>
+        <Label fx:id="welcomeText"/>
+        <Button text="play" onAction="#onHelloButtonClick"/>
+    </top>
+    <center>
+        <ChessBoard fx:id="board">
+
+        </ChessBoard>
+    </center>
+
+</BorderPane>
