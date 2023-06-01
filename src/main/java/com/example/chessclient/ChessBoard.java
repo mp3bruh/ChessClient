@@ -101,13 +101,11 @@ public class ChessBoard extends GridPane {
         ChessSquare fromSquare = (ChessSquare) this.getChildren().get((fromRow-1)*8 + (fromCol -1));
         ChessSquare toSquare = (ChessSquare) this.getChildren().get((toRow-1)*8 + (toCol -1));
 
-        //check if new Square is occupied by same color
-        if(!toSquare.isSquareOccupiedByColor(pieceFromOriginalPos.getColor())) {
-            if (pieceFromOriginalPos.isMoveToPositionLegal(toCol, toRow)) {
-                fromSquare.replacePiece(null);
-                toSquare.replacePiece(pieceFromOriginalPos);
-            }
+        if (pieceFromOriginalPos.isMoveToPositionLegal(toCol, toRow)) {
+            fromSquare.replacePiece(null);
+            toSquare.replacePiece(pieceFromOriginalPos);
         }
+
 
     }
 

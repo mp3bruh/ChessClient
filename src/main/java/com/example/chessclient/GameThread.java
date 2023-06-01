@@ -5,13 +5,14 @@ import javafx.scene.Node;
 
 public class GameThread extends Thread{
     ChessBoard board;
-    public boolean checkmate = false;
+    private boolean checkmate = false;
     private boolean movePossible = false;
     private ChessSquare firstClicked = null;
     private ChessSquare secondClicked = null;
     private ChessSquare fromSquare = null;
     private ChessSquare toSquare = null;
     private int clickedCounter = 0;
+    public int moveCounter = 0;
 
     public GameThread(ChessBoard board) {
         this.board = board;
@@ -53,8 +54,9 @@ public class GameThread extends Thread{
                             case 2->{
                                 if(firstClicked.getPiece()!=null){
 
-                                    if(firstClicked.getPiece().isMoveToPositionLegal(secondClicked.getColumn(),secondClicked.getRow())){
-                                        //clickedCounter=0;
+                                    ChessSquare toSquare = (ChessSquare) board.getChildren().get((secondClicked.getRow()-1)*8 + (secondClicked.getColumn() -1));
+                                    //check if move is legal and if new square is occupied by same color piece
+                                    if(firstClicked.getPiece().isMoveToPositionLegal(secondClicked.getColumn(),secondClicked.getRow()) && !toSquare.isSquareOccupiedByColor(firstClicked.getPiece().getColor())){
                                         movePossible=true;
                                     }
                                     else{
@@ -103,6 +105,7 @@ public class GameThread extends Thread{
         secondClicked=null;
 
         clickedCounter=0;
+        moveCounter++;
 
         Platform.runLater(()->{
             board.move(fromSquare.getColumn(),toSquare.getColumn(),fromSquare.getRow(),toSquare.getRow());
