@@ -63,7 +63,7 @@ public class Pawn extends ChessPiece{
                 return false;
             }
         }
-        //check if new square is free
+
         //check if piece moved through another piece
 
         return true;

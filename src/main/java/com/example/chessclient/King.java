@@ -47,12 +47,10 @@ public class King extends ChessPiece{
     public boolean checkIfLegalMove() {
         if (toRow > 8 || toRow < 1 || toCol > 8 || toCol < 1) {
             return false;
-        } else if(row == toRow && col == toCol){
-            return false;
-        } else if (row != toRow && col != toCol) {
+        }else if (Math.abs(toRow - row) > 1 || Math.abs(toCol - col) > 1){ //check if piece moved more than one square
             return false;
         }
-        //check if new square is free
+
         //check if piece moved through another piece
 
         return true;

@@ -47,9 +47,7 @@ public class Bishup extends ChessPiece{
     public boolean checkIfLegalMove() {
         if (toRow > 8 || toRow < 1 || toCol > 8 || toCol < 1) {
             return false;
-        } else if(row == toRow && col == toCol){
-            return false;
-        } else if (row != toRow && col != toCol) {
+        } else if (Math.abs(toRow - row) != Math.abs(toCol - col)) { //check if piece moved same amount of tiles vertically and horizontally
             return false;
         }
         //check if new square is free

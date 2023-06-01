@@ -48,12 +48,9 @@ public class Rook extends ChessPiece{
     public boolean checkIfLegalMove() {
         if (toRow > 8 || toRow < 1 || toCol > 8 || toCol < 1) {
             return false;
-        } else if(row == toRow && col == toCol){
-            return false;
-        } else if (row != toRow && col != toCol) {
+        }else if (row != toRow && col != toCol) { //check if piece moved diagonal
             return false;
         }
-        //check if new square is free
         //check if piece moved through another piece
 
         return true;

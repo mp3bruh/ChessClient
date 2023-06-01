@@ -47,8 +47,12 @@ public class Knight extends ChessPiece{
     public boolean checkIfLegalMove() {
         if (toRow > 8 || toRow < 1 || toCol > 8 || toCol < 1) {
             return false;
+        }else if (Math.abs(toRow - row) + Math.abs(toCol - col) != 3){
+            return false;
+        }else if(Math.abs(toRow - row) == 3 || Math.abs(toCol - col) == 3){
+            return false;
         }
-        //check if new square is free
+
         //check if piece moved through another piece
 
         return true;
