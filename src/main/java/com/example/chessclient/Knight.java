@@ -3,9 +3,9 @@ package com.example.chessclient;
 import javafx.scene.image.Image;
 
 public class Knight extends ChessPiece{
-
+    int color;
     public Knight(int color, int col, int row) {
-
+        this.color = color;
         this.col = col;
         this.row = row;
 
@@ -33,7 +33,7 @@ public class Knight extends ChessPiece{
 
     @Override
     public int getColor() {
-        return 0;
+        return color;
     }
 
     @Override

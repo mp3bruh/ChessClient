@@ -36,7 +36,7 @@ public class Pawn extends ChessPiece{
 
     @Override
     public int getColor() {
-        return 0;
+        return color;
     }
 
     @Override

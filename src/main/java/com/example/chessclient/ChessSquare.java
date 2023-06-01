@@ -74,6 +74,7 @@ public class ChessSquare extends StackPane {
     public boolean isSquareOccupiedByColor(int color){
 
         if (this.piece != null) {
+            System.out.println(piece.getColor());
             return color == piece.getColor();
         } else {
             return false;
