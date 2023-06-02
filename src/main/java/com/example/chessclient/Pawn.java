@@ -5,14 +5,12 @@ import javafx.scene.image.Image;
 public class Pawn extends ChessPiece{
 
     int color;
-    int originalRow;
 
     public Pawn(int color, int col, int row) {
 
         this.color = color;
         this.col = col;
         this.row = row;
-        originalRow = row;
 
         if(color==WHITE){
             piece_img = new Image("pawn_white.png");
@@ -53,22 +51,30 @@ public class Pawn extends ChessPiece{
         if (toRow > 8 || toRow < 1 || toCol > 8 || toCol < 1) {
             return false;
         }
-        if(col != toCol && row == toRow){//pawn can not move in his row on the left or right ... diagonal is still possible since we have to check if there is another piece
+        if ((color == WHITE && row > 2) && (toRow - row > 1)){//checks if pawn already has made first move so after his first row he cant make 2 moves forward
+            return false;
+        }else if ((color == BLACK && row < 7) && (row - toRow > 1)){
+            return false;
+        }
+        if ((color == WHITE && row <= 2) && (toCol - col > 1 || col - toCol > 1 || row -toRow > 1 && col - toCol == 1 || toRow -row > 1 && toCol - col == -1)){ // checks that if its an l move
+            return false;
+        } else if ((color == BLACK && row <= 7) && (toCol - col > 1 || col - toCol > 1 || row -toRow > 1 && col - toCol == 1 || toRow -row > 1 && toCol - col == -1)){ // checks that if its an l move
+            return false;
+        }
+
+
+
+        if(col < toCol || col > toCol && row == toRow){//pawn can not move in his row on the left or right ... diagonal is still possible since we have to check if there is another piece
+            return false;
+        }
+        if(row == toRow && col == toCol){
             return false;
         } else if (color==WHITE) {
-            if(row == originalRow) { // check if pawn already moved
-                if (toRow < row || toRow > row + 2) { //if not pawn can move two squares
-                    return false;
-                }
-            } else if (toRow < row || toRow > row + 1) {
+            if (toRow < row || toRow > row+2) {
                 return false;
             }
         }else if (color == BLACK){
-            if(row == originalRow) { // check if pawn already moved
-                if (toRow > row || toRow < row - 2) { //if not pawn can move two squares
-                    return false;
-                }
-            } else if (toRow > row || toRow < row - 1) {
+            if (toRow > row || toRow < row-2) {
                 return false;
             }
         }
