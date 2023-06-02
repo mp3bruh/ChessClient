@@ -1,5 +1,7 @@
 package com.example.chessclient;
 
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
@@ -11,6 +13,9 @@ public class ChessBoard extends GridPane {
     public void generateBoard(){
         ChessSquare square;
         Color squareColor;
+
+        Label numberCoordinate = null;
+        Label letterCoordinate = null;
 
         for (int rows = 1; rows <= HelloController.HEIGHT ; rows++){
             for (int columns = 1; columns <= HelloController.WIDTH; columns ++){
@@ -31,13 +36,40 @@ public class ChessBoard extends GridPane {
                         squareColor = Color.GREEN;
                     }
                 }
+
+                if(columns == 1){
+                    numberCoordinate = new Label(String.valueOf(rows)); //add number coordinates
+                    numberCoordinate.setAlignment(Pos.TOP_LEFT);
+                }
+                else{
+                    numberCoordinate = null;
+                }
+                if(rows == 1){
+                    letterCoordinate = new Label(Column.getLetter(columns));    //add letter coordinates
+                    letterCoordinate.setAlignment(Pos.BASELINE_RIGHT);
+                }
+                else{
+                    letterCoordinate = null;
+                }
+
                 square = new ChessSquare(this,squareColor,rows,columns);
                 this.add(square,columns,rows);
+
+                if(numberCoordinate != null) {
+                    square.getChildren().add(numberCoordinate);
+                }
+                if(letterCoordinate != null) {
+                    square.getChildren().add(letterCoordinate);
+                }
             }
         }
 
         ChessPiece piece = null;
         ChessSquare tempSquare;
+
+
+
+
         for (int rows = 1; rows <= HelloController.HEIGHT ; rows++) {
             for (int columns = 1; columns <= HelloController.WIDTH; columns++) {
                 //BLACK PIECES---->DOWN
@@ -80,6 +112,7 @@ public class ChessBoard extends GridPane {
                     tempSquare = (ChessSquare) this.getChildren().get((rows - 1) * 8 + (columns - 1));
                     tempSquare.addPiece(piece);
                 }
+
             }
         }
 

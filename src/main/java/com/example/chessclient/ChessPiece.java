@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 
 public abstract class ChessPiece extends ImageView {
 
-    public static final int PIECE_SIZE = 50;
+    public static final int PIECE_SIZE = 45;
 
     protected Image piece_img;
     public static final int WHITE = 0;

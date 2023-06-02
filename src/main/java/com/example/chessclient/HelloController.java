@@ -20,8 +20,7 @@ public class HelloController {
     private Label welcomeText;
     @FXML
     private BorderPane bp;
-    @FXML
-    private ChessBoard board;
+    private ChessBoard board = new ChessBoard();
     private GameThread gameThread;
     public static final int WIDTH = 8;
     public static final int HEIGHT = 8;
@@ -31,6 +30,7 @@ public class HelloController {
 
     @FXML
     protected void onHelloButtonClick(){
+        bp.setTop(board);
         board.generateBoard();
         gameThread = new GameThread(board);
         gameThread.start();

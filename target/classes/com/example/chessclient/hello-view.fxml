@@ -12,9 +12,6 @@
         <Button text="play" onAction="#onHelloButtonClick"/>
     </top>
     <center>
-        <ChessBoard fx:id="board">
-
-        </ChessBoard>
     </center>
 
 </BorderPane>
