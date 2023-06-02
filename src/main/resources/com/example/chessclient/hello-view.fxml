@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import com.example.chessclient.ChessBoard?>
 <BorderPane fx:id="bp" xmlns:fx="http://javafx.com/fxml"
+            background="Gray"
             fx:controller="com.example.chessclient.HelloController">
     <top>
         <Label fx:id="welcomeText"/>

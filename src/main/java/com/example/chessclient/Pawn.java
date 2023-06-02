@@ -51,7 +51,9 @@ public class Pawn extends ChessPiece{
         if (toRow > 8 || toRow < 1 || toCol > 8 || toCol < 1) {
             return false;
         }
-
+        if(col < toCol || col > toCol && row == toRow){//pawn can not move in his row on the left or right ... diagonal is still possible since we have to check if there is another piece
+            return false;
+        }
         if(row == toRow && col == toCol){
             return false;
         } else if (color==WHITE) {
