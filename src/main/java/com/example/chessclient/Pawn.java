@@ -5,12 +5,14 @@ import javafx.scene.image.Image;
 public class Pawn extends ChessPiece{
 
     int color;
+    int originalRow;
 
     public Pawn(int color, int col, int row) {
 
         this.color = color;
         this.col = col;
         this.row = row;
+        originalRow = row;
 
         if(color==WHITE){
             piece_img = new Image("pawn_white.png");
@@ -51,17 +53,22 @@ public class Pawn extends ChessPiece{
         if (toRow > 8 || toRow < 1 || toCol > 8 || toCol < 1) {
             return false;
         }
-        if(col < toCol || col > toCol && row == toRow){//pawn can not move in his row on the left or right ... diagonal is still possible since we have to check if there is another piece
-            return false;
-        }
-        if(row == toRow && col == toCol){
+        if(col != toCol && row == toRow){//pawn can not move in his row on the left or right ... diagonal is still possible since we have to check if there is another piece
             return false;
         } else if (color==WHITE) {
-            if (toRow < row || toRow > row+2) {
+            if(row == originalRow) { // check if pawn already moved
+                if (toRow < row || toRow > row + 2) { //if not pawn can move two squares
+                    return false;
+                }
+            } else if (toRow < row || toRow > row + 1) {
                 return false;
             }
         }else if (color == BLACK){
-            if (toRow > row || toRow < row-2) {
+            if(row == originalRow) { // check if pawn already moved
+                if (toRow > row || toRow < row - 2) { //if not pawn can move two squares
+                    return false;
+                }
+            } else if (toRow > row || toRow < row - 1) {
                 return false;
             }
         }
