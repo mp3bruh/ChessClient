@@ -16,9 +16,11 @@ public class ChessBoard extends GridPane {
 
         Label numberCoordinate = null;
         Label letterCoordinate = null;
+        int iColumns; //inverted Columns
 
         for (int rows = 1; rows <= HelloController.HEIGHT ; rows++){
             for (int columns = 1; columns <= HelloController.WIDTH; columns ++){
+                iColumns = HelloController.WIDTH - columns + 1;
 
                 if(rows%2==0){
                     if(columns%2==0){
@@ -39,14 +41,16 @@ public class ChessBoard extends GridPane {
 
                 if(columns == 1){
                     numberCoordinate = new Label(String.valueOf(rows)); //add number coordinates
+                    numberCoordinate.setPrefSize(ChessSquare.SQUARE_SIZE,ChessSquare.SQUARE_SIZE);
                     numberCoordinate.setAlignment(Pos.TOP_LEFT);
                 }
                 else{
                     numberCoordinate = null;
                 }
-                if(rows == 1){
-                    letterCoordinate = new Label(Column.getLetter(columns));    //add letter coordinates
-                    letterCoordinate.setAlignment(Pos.BASELINE_RIGHT);
+                if(rows == 8){
+                    letterCoordinate = new Label(Column.getLetter(iColumns));    //add letter coordinates
+                    letterCoordinate.setPrefSize(ChessSquare.SQUARE_SIZE,ChessSquare.SQUARE_SIZE);
+                    letterCoordinate.setAlignment(Pos.BOTTOM_RIGHT);
                 }
                 else{
                     letterCoordinate = null;
