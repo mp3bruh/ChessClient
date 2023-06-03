@@ -61,10 +61,7 @@ public class Pawn extends ChessPiece{
         } else if ((color == BLACK && row <= 7) && (toCol - col > 1 || col - toCol > 1 || row -toRow > 1 && col - toCol == 1 || toRow -row > 1 && toCol - col == -1)){ // checks that if its an l move
             return false;
         }
-
-
-
-        if(col < toCol || col > toCol && row == toRow){//pawn can not move in his row on the left or right ... diagonal is still possible since we have to check if there is another piece
+        if(row == toRow){//pawn can not move in his row on the left or right ... diagonal is still possible since we have to check if there is another piece
             return false;
         }
         if(row == toRow && col == toCol){
