@@ -56,21 +56,14 @@ public class Pawn extends ChessPiece{
         }else if ((color == BLACK && row < 7) && (row - toRow > 1)){
             return false;
         }
-        /*
-        if ((color == WHITE && row <= 2) && (toCol - col > 1 || col - toCol > 1 || row -toRow > 1 && col - toCol == 1 || toRow -row > 1 && toCol - col > 1)){ // checks that if its an l move
-            return false;
-        }
-        if ((color == BLACK && row <= 7) && (toCol - col > 1 || col - toCol > 1 || row -toRow > 1 && col - toCol == 1 || row - toRow > 1 && toCol - col > 1)){ // checks that if its an l move
-            return false;
-        }
 
-         */
-        if(row == toRow){//pawn can not move in his row on the left or right ... diagonal is still possible since we have to check if there is another piece
+        else if ((Math.abs(toRow - row) != Math.abs(toCol - col)) && (row != toRow && col != toCol) ) { //check if piece moved same amount of tiles vertically and horizontally and check if piece moved straight
             return false;
         }
-        if(row == toRow && col == toCol){
+        else if(row == toRow){//pawn can not move in his row on the left or right ... diagonal is still possible since we have to check if there is another piece
             return false;
-        } else if (color==WHITE) {
+        }
+        else if (color==WHITE) {
             if (toRow < row || toRow > row+2) {
                 return false;
             }
