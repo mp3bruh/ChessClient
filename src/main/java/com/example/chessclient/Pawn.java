@@ -6,11 +6,13 @@ public class Pawn extends ChessPiece{
 
     int color;
 
-    public Pawn(int color, int col, int row) {
+    private ChessBoard board;
 
+    public Pawn(int color, int col, int row, ChessBoard board) {
         this.color = color;
         this.col = col;
         this.row = row;
+        this.board = board;
 
         if(color==WHITE){
             piece_img = new Image("pawn_white.png");
@@ -56,15 +58,32 @@ public class Pawn extends ChessPiece{
             return false;
         }
         else if (color==WHITE) {
-            if (toRow < row || toRow > row+2) {
+            if (toRow < row || toRow > row+2) { // make sure pawn can only move two squares
                 return false;
+            }
+
+            //check if piece moved through another piece
+            int helpRow;
+            for(helpRow = row+1 ;helpRow <= toRow; helpRow++){
+                if(board.getSquare(col,helpRow).getPiece() != null){
+                    System.out.println("something under me");
+                    return false;
+                }
             }
         }else if (color == BLACK){
             if (toRow > row || toRow < row-2) {
                 return false;
             }
+
+            //check if piece moved through another piece
+            int helpRow;
+            for(helpRow = row-1 ;helpRow >= toRow; helpRow--){
+                if(board.getSquare(col,helpRow).getPiece() != null){
+                    System.out.println("something above me");
+                    return false;
+                }
+            }
         }
-        //hello
         //check if piece moved through another piece
 
         return true;
