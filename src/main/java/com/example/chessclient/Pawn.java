@@ -25,16 +25,6 @@ public class Pawn extends ChessPiece{
 
 
     @Override
-    public int getRow() {
-        return row;
-    }
-
-    @Override
-    public int getColumn() {
-        return col;
-    }
-
-    @Override
     public int getColor() {
         return color;
     }

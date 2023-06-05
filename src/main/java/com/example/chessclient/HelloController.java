@@ -6,6 +6,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Rotate;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -34,6 +36,7 @@ public class HelloController {
         board.generateBoard();
         gameThread = new GameThread(board);
         gameThread.start();
+
     }
 
 
