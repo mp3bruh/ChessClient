@@ -1,6 +1,7 @@
 package com.example.chessclient;
 
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -13,6 +14,7 @@ public class ChessBoard extends GridPane {
     public void generateBoard(){
         ChessSquare square;
         Color squareColor;
+
 
         Label numberCoordinate = null;
         Label letterCoordinate = null;
