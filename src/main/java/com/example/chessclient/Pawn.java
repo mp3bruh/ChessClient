@@ -56,7 +56,9 @@ public class Pawn extends ChessPiece{
         }else if ((color == BLACK && row < 7) && (row - toRow > 1)){
             return false;
         }
-
+        if((row == 2 || row == 7) && (col != toCol) &&(Math.abs(toCol - col) >=2 )){
+            return false;
+        }
         else if ((Math.abs(toRow - row) != Math.abs(toCol - col)) && (row != toRow && col != toCol) ) { //check if piece moved same amount of tiles vertically and horizontally and check if piece moved straight
             return false;
         }
