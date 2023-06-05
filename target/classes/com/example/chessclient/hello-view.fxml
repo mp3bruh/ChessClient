@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import com.example.chessclient.ChessBoard?>
-<BorderPane fx:id="bp" xmlns:fx="http://javafx.com/fxml"
 
-            fx:controller="com.example.chessclient.HelloController">
+<?import javafx.scene.control.TextField?>
+<BorderPane fx:id="bp" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="com.example.chessclient.HelloController">
     <top>
-        <Label fx:id="welcomeText"/>
-        <Button text="play" onAction="#onHelloButtonClick"/>
+
+        <Button onAction="#onHelloButtonClick" text="play" />
     </top>
     <center>
     </center>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button onMouseClicked="#joinRoom" layoutX="14.0" layoutY="61.0" mnemonicParsing="false" text="Join Room" />
+            <Button onMouseClicked="#createRoom" layoutX="114.0" layoutY="61.0" mnemonicParsing="false" text="Create Room" />
+            <TextField fx:id="joinRoomTextField" layoutX="11.0" layoutY="109.0" promptText="RoomId" />
+            <Label fx:id="createRoomLabel" layoutX="128.0" layoutY="125.0" text="Label" />
+         </children>
+      </AnchorPane>
+   </center>
 
 </BorderPane>

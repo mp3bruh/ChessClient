@@ -3,18 +3,19 @@ package com.example.chessclient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketException;
+import java.net.*;
 import java.util.ArrayList;
 
 public class HelloController {
 
+    public TextField joinRoomTextField;
+    public Label createRoomLabel;
     //
     @FXML
     private Label welcomeText;
@@ -26,6 +27,61 @@ public class HelloController {
     public static final int HEIGHT = 8;
 
 
+    public void joinRoom() throws IOException {
+        if(joinRoomTextField.getText().isEmpty()){
+            System.out.println("Keine ID angegeben!");
+        }else{
+            String roomId = joinRoomTextField.getText();
+
+            DatagramSocket socket = new DatagramSocket();
+            String payload = "JOIN_ROOM:" + roomId;
+            byte buffer[] = payload.getBytes();
+
+            InetAddress remoteIP = InetAddress.getByName("localhost");
+            int remotePort = 6969;
+            DatagramPacket postkarte = new DatagramPacket(buffer, buffer.length, remoteIP, remotePort);
+
+            //senden
+            socket.send(postkarte);
+            socket.close();
+
+            //socket nicht schließen --- gameloop
+        }
+    }
+
+    @FXML
+    private void createRoom() {
+        try {
+            // socket
+            DatagramSocket socket = new DatagramSocket();
+
+            // datagram definieren -> Postkarte
+            String payload = "CREATE_ROOM";
+            byte buffer[] = payload.getBytes();
+
+            InetAddress remoteIP = InetAddress.getByName("localhost");
+            int remotePort = 4567;
+            DatagramPacket postkarte = new DatagramPacket(buffer, buffer.length, remoteIP, remotePort);
+
+            // datagramm verschicken
+            socket.send(postkarte);
+
+            // Empfangen der Room-ID vom Server
+            buffer = new byte[1024];
+            postkarte = new DatagramPacket(buffer, buffer.length);
+            socket.receive(postkarte);
+
+            // Ausgabe der Room-ID
+            String roomId = new String(postkarte.getData(), 0, postkarte.getLength());
+            createRoomLabel.setText(roomId);
+            System.out.println("RoomID: " + roomId);
+
+            socket.close();
+
+        } catch (IOException e) {
+            System.out.println("Fehler " + e.getMessage());
+        }
+    }
 
 
     @FXML
@@ -50,7 +106,7 @@ public class HelloController {
             byte buffer[] = payload.getBytes();
 
             InetAddress remoteIP = InetAddress.getByName("localhost");
-            int remotePort = 4567;
+            int remotePort = 6969;
             DatagramPacket postkarte = new DatagramPacket(buffer, buffer.length, remoteIP, remotePort);
             //datagramm verschicken
             socket.send(postkarte);
