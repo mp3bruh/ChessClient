@@ -42,41 +42,38 @@ public class Rook extends ChessPiece{
     public boolean checkIfLegalMove() {
         if (toRow > 8 || toRow < 1 || toCol > 8 || toCol < 1) {
             return false;
-        }else if (row != toRow && col != toCol) { //check if piece moved diagonal
+        } else if (row != toRow && col != toCol) { // check if piece moved diagonally
             return false;
         }
 
-        //check if piece moved through another piece
+        // Check if piece moved through another piece
         int helpRow;
         int helpCol;
         if (toRow > row) {
-            for(helpRow = row+1 ;helpRow < toRow; helpRow++){
-                if(board.getSquare(col,helpRow).getPiece() != null){
-                    System.out.println("something under me");
+            for(helpRow = row + 1; helpRow < toRow; helpRow++) {
+                if (board.getSquare(col, helpRow).getPiece() != null) {
+                    System.out.println("Something is blocking my path");
                     return false;
                 }
             }
-        }
-        else if (toRow < row) {
-            for(helpRow = row-1 ;helpRow > toRow; helpRow--){
-                if(board.getSquare(col,helpRow).getPiece() != null){
-                    System.out.println("something above me");
+        } else if (toRow < row) {
+            for(helpRow = row - 1; helpRow > toRow; helpRow--) {
+                if (board.getSquare(col, helpRow).getPiece() != null) {
+                    System.out.println("Something is blocking my path");
                     return false;
                 }
             }
-        }
-        else if (toCol < col) {
-            for(helpCol = col -1;helpCol > toCol; helpCol--){
-                if(board.getSquare(helpCol,row).getPiece() != null){
-                    System.out.println("something on my left");
+        } else if (toCol < col) {
+            for(helpCol = col - 1; helpCol > toCol; helpCol--) {
+                if (board.getSquare(helpCol, row).getPiece() != null) {
+                    System.out.println("Something is blocking my path");
                     return false;
                 }
             }
-        }
-        else if (toCol > col) {
-            for(helpCol = col +1;helpCol < toCol; helpCol++){
-                if(board.getSquare(helpCol,row).getPiece() != null){
-                    System.out.println("something on my right");
+        } else if (toCol > col) {
+            for(helpCol = col + 1; helpCol < toCol; helpCol++) {
+                if (board.getSquare(helpCol, row).getPiece() != null) {
+                    System.out.println("Something is blocking my path");
                     return false;
                 }
             }
@@ -91,4 +88,44 @@ public class Rook extends ChessPiece{
         this.row = row;
     }
 
+    @Override
+    public boolean hasMoved() {
+        return false;
+    }
+
+    public boolean checkForCastle(int toCol, int toRow) {
+        // Check if the move is a castle move
+        if (!hasMoved()) {
+            if (color == WHITE) {
+                if (toRow == 1 && (toCol == 3 || toCol == 7)) {
+                    return checkForCastle(toCol, toRow, 1, 8);
+                }
+            } else if (color == BLACK) {
+                if (toRow == 8 && (toCol == 3 || toCol == 7)) {
+                    return checkForCastle(toCol, toRow, 8, 1);
+                }
+            }
+        }
+        return false;
+    }
+
+
+
+    private boolean checkForCastle(int toCol, int toRow, int kingCol, int rookCol) {
+        int minCol = Math.min(kingCol, toCol);
+        int maxCol = Math.max(kingCol, toCol);
+
+        for (int col = minCol + 1; col < maxCol; col++) {
+            if (board.getPieceOnSquare(col, toRow) != null) {
+                return false;
+            }
+        }
+
+        ChessPiece rook = board.getPieceOnSquare(rookCol, toRow);
+        if (rook instanceof Rook && !rook.hasMoved()) {
+            return true;
+        }
+
+        return false;
+    }
 }

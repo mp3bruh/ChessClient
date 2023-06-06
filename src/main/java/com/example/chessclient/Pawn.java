@@ -94,5 +94,10 @@ public class Pawn extends ChessPiece{
         this.col = col;
         this.row = row;
     }
+
+    @Override
+    public boolean hasMoved() {
+        return false;
+    }
 }
 

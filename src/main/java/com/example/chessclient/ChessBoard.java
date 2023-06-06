@@ -124,6 +124,50 @@ public class ChessBoard extends GridPane {
         }
 
     }
+    public void castle(int fromCol, int toCol, int fromRow, int toRow) {
+        ChessPiece pieceFromOriginalPos = getPieceOnSquare(fromCol, fromRow);
+        ChessPiece rookPiece = null;
+
+        ChessSquare fromSquare = getSquare(fromCol, fromRow);
+        ChessSquare toSquare = getSquare(toCol, toRow);
+
+        // Check if the piece being moved is the king
+        if (pieceFromOriginalPos instanceof King) {
+            King king = (King) pieceFromOriginalPos;
+            // Check if the move is a valid castling move
+            if (king.isCastlingMove(toCol, toRow)) {
+                // Determine the rook's position based on the castling direction
+                int rookFromCol, rookToCol;
+                if (toCol > fromCol) {
+                    // Castling to the right
+                    rookFromCol = 8;
+                    rookToCol = toCol - 1;
+                } else {
+                    // Castling to the left
+                    rookFromCol = 1;
+                    rookToCol = toCol + 1;
+                }
+
+                // Retrieve the rook piece from the specified column and row
+                rookPiece = getPieceOnSquare(rookFromCol, toRow);
+
+                // Check if the rook piece is a valid rook and it hasn't moved before
+                if (rookPiece instanceof Rook && !rookPiece.hasMoved()) {
+                    // Move the king to the target square
+                    fromSquare.replacePiece(null);
+                    toSquare.replacePiece(pieceFromOriginalPos);
+                    pieceFromOriginalPos.updateCoordinates(toCol, toRow);
+
+                    // Move the rook to the appropriate square
+                    ChessSquare rookFromSquare = getSquare(rookFromCol, toRow);
+                    ChessSquare rookToSquare = getSquare(rookToCol, toRow);
+                    rookFromSquare.replacePiece(null);
+                    rookToSquare.replacePiece(rookPiece);
+                    rookPiece.updateCoordinates(rookToCol, toRow);
+                }
+            }
+        }
+    }
 
     public ChessSquare getSquare(int col, int row){
         ChessSquare square = (ChessSquare) this.getChildren().get((row - 1) * 8 + (col - 1));
@@ -135,9 +179,14 @@ public class ChessBoard extends GridPane {
     }
 
     public void move(int fromCol, int toCol, int fromRow, int toRow){
+
         ChessPiece pieceFromOriginalPos;
         pieceFromOriginalPos = getPieceOnSquare(fromCol,fromRow);
 
+        if (pieceFromOriginalPos instanceof King && ((King) pieceFromOriginalPos).isCastlingMove(toCol, toRow)) {
+            castle(fromCol, toCol, fromRow, toRow);
+            return;
+        }
         ChessSquare fromSquare = (ChessSquare) this.getChildren().get((fromRow-1)*8 + (fromCol -1));
         ChessSquare toSquare = (ChessSquare) this.getChildren().get((toRow-1)*8 + (toCol -1));
 

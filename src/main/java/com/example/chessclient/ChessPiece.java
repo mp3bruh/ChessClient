@@ -16,4 +16,5 @@ public abstract class ChessPiece extends ImageView {
     public abstract boolean isMoveToPositionLegal(int col, int row);
     public abstract boolean checkIfLegalMove();
     public abstract void updateCoordinates(int col, int row);
+    public abstract boolean hasMoved();
 }
