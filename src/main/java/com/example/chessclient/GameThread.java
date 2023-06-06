@@ -55,8 +55,8 @@ public class GameThread extends Thread{
                                 if(firstClicked.getPiece()!=null){
 
                                     ChessSquare toSquare = (ChessSquare) board.getChildren().get((secondClicked.getRow()-1)*8 + (secondClicked.getColumn() -1));
-                                    //check if move is legal and if new square is occupied by same color piece
-                                    if(firstClicked.getPiece().isMoveToPositionLegal(secondClicked.getColumn(),secondClicked.getRow()) && !toSquare.isSquareOccupiedByColor(firstClicked.getPiece().getColor())){
+                                    //check if move is legal and if new square is occupied by same color piece and whose move it is
+                                    if(firstClicked.getPiece().isMoveToPositionLegal(secondClicked.getColumn(),secondClicked.getRow()) && !toSquare.isSquareOccupiedByColor(firstClicked.getPiece().getColor()) && firstClicked.getPiece().getColor()==(moveCounter%2)){
                                         movePossible=true;
                                     }
                                     else{

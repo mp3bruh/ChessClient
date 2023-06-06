@@ -64,12 +64,41 @@ public class Pawn extends ChessPiece{
 
             //check if piece moved through another piece
             int helpRow;
-            for(helpRow = row+1 ;helpRow <= toRow; helpRow++){
-                if(board.getSquare(col,helpRow).getPiece() != null){
-                    System.out.println("something under me");
-                    return false;
+            int helpCol;
+
+            if(col == toCol) {
+                for (helpRow = row + 1; helpRow <= toRow; helpRow++) {
+                    if (board.getSquare(col, helpRow).getPiece() != null) {
+                        System.out.println("something under me");
+                        return false;
+                    }
                 }
             }
+            else if(col < toCol) {
+                helpRow = row+1;
+                helpCol = col+1;
+                while (helpCol <= toCol && helpRow <= toRow) {
+                    if (board.getSquare(helpCol, helpRow).getPiece() == null) {
+                        System.out.println("nothing under and right me");
+                        return false;
+                    }
+                    helpCol++;
+                    helpRow++;
+                }
+            }
+            else{
+                helpRow = row+1;
+                helpCol = col-1;
+                while (helpCol >= toCol && helpRow <= toRow) {
+                    if (board.getSquare(helpCol, helpRow).getPiece() == null) {
+                        System.out.println("nothing under and left me");
+                        return false;
+                    }
+                    helpCol--;
+                    helpRow++;
+                }
+            }
+
         }else if (color == BLACK){
             if (toRow > row || toRow < row-2) {
                 return false;
@@ -77,10 +106,38 @@ public class Pawn extends ChessPiece{
 
             //check if piece moved through another piece
             int helpRow;
-            for(helpRow = row-1 ;helpRow >= toRow; helpRow--){
-                if(board.getSquare(col,helpRow).getPiece() != null){
-                    System.out.println("something above me");
-                    return false;
+            int helpCol;
+
+            if(col == toCol) {
+                for (helpRow = row - 1; helpRow >= toRow; helpRow--) {
+                    if (board.getSquare(col, helpRow).getPiece() != null) {
+                        System.out.println("something under me");
+                        return false;
+                    }
+                }
+            }
+            else if(col < toCol) {
+                helpRow = row-1;
+                helpCol = col+1;
+                while (helpCol <= toCol && helpRow >= toRow) {
+                    if (board.getSquare(helpCol, helpRow).getPiece() == null) {
+                        System.out.println("nothing above and right me");
+                        return false;
+                    }
+                    helpCol++;
+                    helpRow--;
+                }
+            }
+            else{
+                helpRow = row-1;
+                helpCol = col-1;
+                while (helpCol >= toCol && helpRow >= toRow) {
+                    if (board.getSquare(helpCol, helpRow).getPiece() == null) {
+                        System.out.println("nothing above and left me");
+                        return false;
+                    }
+                    helpCol--;
+                    helpRow--;
                 }
             }
         }
