@@ -6,11 +6,13 @@ public class Pawn extends ChessPiece{
 
     int color;
 
-    public Pawn(int color, int col, int row) {
+    private ChessBoard board;
 
+    public Pawn(int color, int col, int row, ChessBoard board) {
         this.color = color;
         this.col = col;
         this.row = row;
+        this.board = board;
 
         if(color==WHITE){
             piece_img = new Image("pawn_white.png");
@@ -23,16 +25,6 @@ public class Pawn extends ChessPiece{
         this.setFitHeight(PIECE_SIZE);
     }
 
-
-    @Override
-    public int getRow() {
-        return row;
-    }
-
-    @Override
-    public int getColumn() {
-        return col;
-    }
 
     @Override
     public int getColor() {
@@ -56,7 +48,9 @@ public class Pawn extends ChessPiece{
         }else if ((color == BLACK && row < 7) && (row - toRow > 1)){
             return false;
         }
-
+        if((row == 2 || row == 7) && (col != toCol) &&(Math.abs(toCol - col) >=2 )){
+            return false;
+        }
         else if ((Math.abs(toRow - row) != Math.abs(toCol - col)) && (row != toRow && col != toCol) ) { //check if piece moved same amount of tiles vertically and horizontally and check if piece moved straight
             return false;
         }
@@ -64,15 +58,32 @@ public class Pawn extends ChessPiece{
             return false;
         }
         else if (color==WHITE) {
-            if (toRow < row || toRow > row+2) {
+            if (toRow < row || toRow > row+2) { // make sure pawn can only move two squares
                 return false;
+            }
+
+            //check if piece moved through another piece
+            int helpRow;
+            for(helpRow = row+1 ;helpRow <= toRow; helpRow++){
+                if(board.getSquare(col,helpRow).getPiece() != null){
+                    System.out.println("something under me");
+                    return false;
+                }
             }
         }else if (color == BLACK){
             if (toRow > row || toRow < row-2) {
                 return false;
             }
+
+            //check if piece moved through another piece
+            int helpRow;
+            for(helpRow = row-1 ;helpRow >= toRow; helpRow--){
+                if(board.getSquare(col,helpRow).getPiece() != null){
+                    System.out.println("something above me");
+                    return false;
+                }
+            }
         }
-        //hello
         //check if piece moved through another piece
 
         return true;

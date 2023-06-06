@@ -4,10 +4,13 @@ import javafx.scene.image.Image;
 
 public class Knight extends ChessPiece{
     int color;
-    public Knight(int color, int col, int row) {
+    private ChessBoard board;
+
+    public Knight(int color, int col, int row, ChessBoard board) {
         this.color = color;
         this.col = col;
         this.row = row;
+        this.board = board;
 
         if(color==WHITE){
             piece_img = new Image("knight_white.png");
@@ -20,16 +23,6 @@ public class Knight extends ChessPiece{
         this.setFitHeight(PIECE_SIZE);
     }
 
-
-    @Override
-    public int getRow() {
-        return row;
-    }
-
-    @Override
-    public int getColumn() {
-        return col;
-    }
 
     @Override
     public int getColor() {

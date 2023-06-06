@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Rotate;
+
 import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
@@ -90,6 +92,7 @@ public class HelloController {
         board.generateBoard();
         gameThread = new GameThread(board);
         gameThread.start();
+
     }
 
 

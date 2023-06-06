@@ -4,10 +4,13 @@ import javafx.scene.image.Image;
 
 public class Queen extends ChessPiece{
     int color;
-    public Queen(int color, int col, int row) {
+    private ChessBoard board;
+
+    public Queen(int color, int col, int row, ChessBoard board) {
         this.color = color;
         this.col = col;
         this.row = row;
+        this.board = board;
 
         if(color==WHITE){
             piece_img = new Image("queen_white.png");
@@ -20,16 +23,6 @@ public class Queen extends ChessPiece{
         this.setFitHeight(PIECE_SIZE);
     }
 
-
-    @Override
-    public int getRow() {
-        return row;
-    }
-
-    @Override
-    public int getColumn() {
-        return col;
-    }
 
     @Override
     public int getColor() {
@@ -52,6 +45,93 @@ public class Queen extends ChessPiece{
         }
 
         //check if piece moved through another piece
+        int helpRow;
+        int helpCol;
+        if (toRow > row) {
+            if (toCol < col){
+                helpRow = row +1;
+                helpCol = col -1;
+                while (helpCol > toCol && helpRow < toRow){
+                    if(board.getSquare(helpCol,helpRow).getPiece() != null){
+                        System.out.println("something under and left me");
+                        return false;
+                    }
+                    helpCol --;
+                    helpRow ++;
+                }
+            }
+            else if(toCol > col){
+                helpRow = row +1;
+                helpCol = col +1;
+                while (helpCol < toCol && helpRow < toRow){
+                    if(board.getSquare(helpCol,helpRow).getPiece() != null){
+                        System.out.println("something under and right me");
+                        return false;
+                    }
+                    helpCol ++;
+                    helpRow ++;
+                }
+            }
+            else {
+                for (helpRow = row + 1; helpRow < toRow; helpRow++) {
+                    if (board.getSquare(col, helpRow).getPiece() != null) {
+                        System.out.println("something under me");
+                        return false;
+                    }
+                }
+            }
+        }
+        else if (toRow < row) {
+            if (toCol < col){
+                helpRow = row -1;
+                helpCol = col -1;
+                while (helpCol > toCol && helpRow > toRow){
+                    if(board.getSquare(helpCol,helpRow).getPiece() != null){
+                        System.out.println("something above and left me");
+                        return false;
+                    }
+                    helpCol --;
+                    helpRow --;
+                }
+            }
+            else if(toCol > col){
+                helpRow = row -1;
+                helpCol = col +1;
+                while (helpCol < toCol && helpRow > toRow){
+                    if(board.getSquare(helpCol,helpRow).getPiece() != null){
+                        System.out.println("something above and right me");
+                        return false;
+                    }
+                    helpCol ++;
+                    helpRow --;
+                }
+            }
+            else {
+                for (helpRow = row - 1; helpRow > toRow; helpRow--) {
+                    if (board.getSquare(col, helpRow).getPiece() != null) {
+                        System.out.println("something above me");
+                        return false;
+                    }
+                }
+            }
+        }
+        else if(toRow == row){
+            if(col > toCol) {
+                for (helpCol = col - 1; helpCol > toCol; helpCol--) {
+                    if (board.getSquare(helpCol, row).getPiece() != null) {
+                        System.out.println("something on my left");
+                        return false;
+                    }
+                }
+            }else{
+                for(helpCol = col +1;helpCol < toCol; helpCol++){
+                    if(board.getSquare(helpCol,row).getPiece() != null){
+                        System.out.println("something on my right");
+                        return false;
+                    }
+                }
+            }
+        }
 
         return true;
     }

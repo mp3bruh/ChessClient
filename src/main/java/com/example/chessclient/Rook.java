@@ -2,13 +2,17 @@ package com.example.chessclient;
 
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
+
 public class Rook extends ChessPiece{
     int color;
+    private ChessBoard board;
 
-    public Rook(int color, int col, int row) {
+    public Rook(int color, int col, int row, ChessBoard board) {
         this.color = color;
         this.col = col;
         this.row = row;
+        this.board = board;
 
         if(color==WHITE){
             piece_img = new Image("rook_white.png");
@@ -21,16 +25,6 @@ public class Rook extends ChessPiece{
         this.setFitHeight(PIECE_SIZE);
     }
 
-
-    @Override
-    public int getRow() {
-        return row;
-    }
-
-    @Override
-    public int getColumn() {
-        return col;
-    }
 
     @Override
     public int getColor() {
@@ -51,7 +45,42 @@ public class Rook extends ChessPiece{
         }else if (row != toRow && col != toCol) { //check if piece moved diagonal
             return false;
         }
+
         //check if piece moved through another piece
+        int helpRow;
+        int helpCol;
+        if (toRow > row) {
+            for(helpRow = row+1 ;helpRow < toRow; helpRow++){
+                if(board.getSquare(col,helpRow).getPiece() != null){
+                    System.out.println("something under me");
+                    return false;
+                }
+            }
+        }
+        else if (toRow < row) {
+            for(helpRow = row-1 ;helpRow > toRow; helpRow--){
+                if(board.getSquare(col,helpRow).getPiece() != null){
+                    System.out.println("something above me");
+                    return false;
+                }
+            }
+        }
+        else if (toCol < col) {
+            for(helpCol = col -1;helpCol > toCol; helpCol--){
+                if(board.getSquare(helpCol,row).getPiece() != null){
+                    System.out.println("something on my left");
+                    return false;
+                }
+            }
+        }
+        else if (toCol > col) {
+            for(helpCol = col +1;helpCol < toCol; helpCol++){
+                if(board.getSquare(helpCol,row).getPiece() != null){
+                    System.out.println("something on my right");
+                    return false;
+                }
+            }
+        }
 
         return true;
     }

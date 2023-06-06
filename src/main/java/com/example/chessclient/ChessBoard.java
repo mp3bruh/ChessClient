@@ -1,6 +1,7 @@
 package com.example.chessclient;
 
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -13,6 +14,7 @@ public class ChessBoard extends GridPane {
     public void generateBoard(){
         ChessSquare square;
         Color squareColor;
+
 
         Label numberCoordinate = null;
         Label letterCoordinate = null;
@@ -79,34 +81,35 @@ public class ChessBoard extends GridPane {
                 //BLACK PIECES---->DOWN
                 if (rows == 8) {
                     if (columns == 1 || columns == 8) {
-                        piece = new Rook(ChessPiece.BLACK,columns,rows);
+                        piece = new Rook(ChessPiece.BLACK,columns,rows,this);
                     } else if (columns == 2 || columns == 7) {
-                        piece = new Knight(ChessPiece.BLACK,columns,rows);
+                        piece = new Knight(ChessPiece.BLACK,columns,rows,this);
                     } else if (columns == 3 || columns == 6) {
-                        piece = new Bishup(ChessPiece.BLACK,columns,rows);
+                        piece = new Bishup(ChessPiece.BLACK,columns,rows,this);
                     } else if (columns == 4) {
-                        piece = new King(ChessPiece.BLACK,columns,rows);
+                        piece = new King(ChessPiece.BLACK,columns,rows,this);
+                        piece = new King(ChessPiece.BLACK,columns,rows,this);
                     } else {
-                        piece = new Queen(ChessPiece.BLACK,columns,rows);
+                        piece = new Queen(ChessPiece.BLACK,columns,rows,this);
                     }
                 } else if (rows == 7) {
-                    piece = new Pawn(ChessPiece.BLACK,columns,rows);
+                    piece = new Pawn(ChessPiece.BLACK,columns,rows,this);
                 }
                 //WHITE PIECES--->TOP
                 else if (rows == 1) {
                     if (columns == 1 || columns == 8) {
-                        piece = new Rook(ChessPiece.WHITE,columns,rows);
+                        piece = new Rook(ChessPiece.WHITE,columns,rows,this);
                     } else if (columns == 2 || columns == 7) {
-                        piece = new Knight(ChessPiece.WHITE,columns,rows);
+                        piece = new Knight(ChessPiece.WHITE,columns,rows,this);
                     } else if (columns == 3 || columns == 6) {
-                        piece = new Bishup(ChessPiece.WHITE,columns,rows);
+                        piece = new Bishup(ChessPiece.WHITE,columns,rows, this);
                     } else if (columns == 4) {
-                        piece = new King(ChessPiece.WHITE,columns,rows);
+                        piece = new King(ChessPiece.WHITE,columns,rows,this);
                     } else {
-                        piece = new Queen(ChessPiece.WHITE,columns,rows);
+                        piece = new Queen(ChessPiece.WHITE,columns,rows,this);
                     }
                 } else if (rows == 2) {
-                    piece = new Pawn(ChessPiece.WHITE,columns,rows);
+                    piece = new Pawn(ChessPiece.WHITE,columns,rows,this);
                 }
                 else{
                     piece = null;

@@ -6,22 +6,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class ChessSquare extends StackPane {
-
     protected int row;
     protected int col;
     private ChessBoard board;
     public final static int SQUARE_SIZE = 50;
-
     private final Rectangle rect = new Rectangle(SQUARE_SIZE,SQUARE_SIZE);
     private final Color defaultColor;
-
     private ChessPiece piece;
-
     private boolean isOccupied = false;
     private boolean isClicked = false;
-
-
-
     public ChessSquare(ChessBoard board,Color color, int row, int column) {
         this.row = row;
         this.col = column;
@@ -70,7 +63,6 @@ public class ChessSquare extends StackPane {
             piece.updateCoordinates(piece.toCol,piece.toRow);
         }
     }
-
     public boolean isSquareOccupiedByColor(int color){
 
         if (this.piece != null) {
@@ -80,8 +72,6 @@ public class ChessSquare extends StackPane {
         }
 
     }
-
-
     public boolean isSquareClicked(){
         return isClicked;
     }
