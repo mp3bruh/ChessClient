@@ -1,5 +1,6 @@
 package com.example.chessclient;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -53,37 +54,41 @@ public class HelloController {
 
     @FXML
     private void createRoom() {
-        try {
-            // socket
-            DatagramSocket socket = new DatagramSocket();
+        new Thread(() -> {
+            try {
+                // socket
+                DatagramSocket socket = new DatagramSocket();
 
-            // datagram definieren -> Postkarte
-            String payload = "CREATE_ROOM";
-            byte buffer[] = payload.getBytes();
+                // datagram definieren -> Postkarte
+                String payload = "CREATE_ROOM";
+                byte buffer[] = payload.getBytes();
 
-            InetAddress remoteIP = InetAddress.getByName("localhost");
-            int remotePort = 4567;
-            DatagramPacket postkarte = new DatagramPacket(buffer, buffer.length, remoteIP, remotePort);
+                InetAddress remoteIP = InetAddress.getByName("localhost");
+                int remotePort = 6969;
+                DatagramPacket postkarte = new DatagramPacket(buffer, buffer.length, remoteIP, remotePort);
 
-            // datagramm verschicken
-            socket.send(postkarte);
+                // datagramm verschicken
+                socket.send(postkarte);
 
-            // Empfangen der Room-ID vom Server
-            buffer = new byte[1024];
-            postkarte = new DatagramPacket(buffer, buffer.length);
-            socket.receive(postkarte);
+                // Empfangen der Room-ID vom Server
+                buffer = new byte[1024];
+                postkarte = new DatagramPacket(buffer, buffer.length);
+                socket.receive(postkarte);
 
-            // Ausgabe der Room-ID
-            String roomId = new String(postkarte.getData(), 0, postkarte.getLength());
-            createRoomLabel.setText(roomId);
-            System.out.println("RoomID: " + roomId);
+                // Ausgabe der Room-ID
+                String roomId = new String(postkarte.getData(), 0, postkarte.getLength());
+                // Updating the UI components must be done in the JavaFX Application Thread
+                Platform.runLater(() -> createRoomLabel.setText(roomId));
+                System.out.println("RoomID: " + roomId);
 
-            socket.close();
+                socket.close();
 
-        } catch (IOException e) {
-            System.out.println("Fehler " + e.getMessage());
-        }
+            } catch (IOException e) {
+                System.out.println("Fehler " + e.getMessage());
+            }
+        }).start();
     }
+
 
 
     @FXML
