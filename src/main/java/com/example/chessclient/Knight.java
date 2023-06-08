@@ -46,8 +46,6 @@ public class Knight extends ChessPiece{
             return false;
         }
 
-        //check if piece moved through another piece
-
         return true;
     }
 

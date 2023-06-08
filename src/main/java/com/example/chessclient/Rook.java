@@ -53,28 +53,24 @@ public class Rook extends ChessPiece{
         if (toRow > row) {
             for(helpRow = row + 1; helpRow < toRow; helpRow++) {
                 if (board.getSquare(col, helpRow).getPiece() != null) {
-                    System.out.println("Something is blocking my path");
                     return false;
                 }
             }
         } else if (toRow < row) {
             for(helpRow = row - 1; helpRow > toRow; helpRow--) {
                 if (board.getSquare(col, helpRow).getPiece() != null) {
-                    System.out.println("Something is blocking my path");
                     return false;
                 }
             }
         } else if (toCol < col) {
             for(helpCol = col - 1; helpCol > toCol; helpCol--) {
                 if (board.getSquare(helpCol, row).getPiece() != null) {
-                    System.out.println("Something is blocking my path");
                     return false;
                 }
             }
         } else if (toCol > col) {
             for(helpCol = col + 1; helpCol < toCol; helpCol++) {
                 if (board.getSquare(helpCol, row).getPiece() != null) {
-                    System.out.println("Something is blocking my path");
                     return false;
                 }
             }

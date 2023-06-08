@@ -61,14 +61,14 @@ public class King extends ChessPiece {
     }
 
     boolean isCastlingMove(int toCol, int toRow) {
-        if (toCol == 3 && toRow == row && !hasMoved) {
+        if (toCol == 2 && toRow == row && !hasMoved) {
             ChessPiece leftRook = board.getPieceOnSquare(1, row);
             if (leftRook instanceof Rook && !leftRook.hasMoved()) {
                 if (board.getPieceOnSquare(2, row) == null && board.getPieceOnSquare(3, row) == null) {
                     return true;
                 }
             }
-        } else if (toCol == 7 && toRow == row && !hasMoved) {
+        } else if (toCol == 6 && toRow == row && !hasMoved) {
             ChessPiece rightRook = board.getPieceOnSquare(8, row);
             if (rightRook instanceof Rook && !rightRook.hasMoved()) {
                 if (board.getPieceOnSquare(6, row) == null && board.getPieceOnSquare(7, row) == null) {

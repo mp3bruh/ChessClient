@@ -111,7 +111,6 @@ public class Pawn extends ChessPiece{
             if(col == toCol) {
                 for (helpRow = row - 1; helpRow >= toRow; helpRow--) {
                     if (board.getSquare(col, helpRow).getPiece() != null) {
-                        System.out.println("something under me");
                         return false;
                     }
                 }
@@ -121,7 +120,6 @@ public class Pawn extends ChessPiece{
                 helpCol = col+1;
                 while (helpCol <= toCol && helpRow >= toRow) {
                     if (board.getSquare(helpCol, helpRow).getPiece() == null) {
-                        System.out.println("nothing above and right me");
                         return false;
                     }
                     helpCol++;
@@ -133,7 +131,6 @@ public class Pawn extends ChessPiece{
                 helpCol = col-1;
                 while (helpCol >= toCol && helpRow >= toRow) {
                     if (board.getSquare(helpCol, helpRow).getPiece() == null) {
-                        System.out.println("nothing above and left me");
                         return false;
                     }
                     helpCol--;
@@ -141,7 +138,6 @@ public class Pawn extends ChessPiece{
                 }
             }
         }
-        //check if piece moved through another piece
 
         return true;
     }

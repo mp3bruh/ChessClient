@@ -53,7 +53,6 @@ public class Queen extends ChessPiece{
                 helpCol = col -1;
                 while (helpCol > toCol && helpRow < toRow){
                     if(board.getSquare(helpCol,helpRow).getPiece() != null){
-                        System.out.println("something under and left me");
                         return false;
                     }
                     helpCol --;
@@ -65,7 +64,6 @@ public class Queen extends ChessPiece{
                 helpCol = col +1;
                 while (helpCol < toCol && helpRow < toRow){
                     if(board.getSquare(helpCol,helpRow).getPiece() != null){
-                        System.out.println("something under and right me");
                         return false;
                     }
                     helpCol ++;
@@ -75,7 +73,6 @@ public class Queen extends ChessPiece{
             else {
                 for (helpRow = row + 1; helpRow < toRow; helpRow++) {
                     if (board.getSquare(col, helpRow).getPiece() != null) {
-                        System.out.println("something under me");
                         return false;
                     }
                 }
@@ -87,7 +84,6 @@ public class Queen extends ChessPiece{
                 helpCol = col -1;
                 while (helpCol > toCol && helpRow > toRow){
                     if(board.getSquare(helpCol,helpRow).getPiece() != null){
-                        System.out.println("something above and left me");
                         return false;
                     }
                     helpCol --;
@@ -99,7 +95,6 @@ public class Queen extends ChessPiece{
                 helpCol = col +1;
                 while (helpCol < toCol && helpRow > toRow){
                     if(board.getSquare(helpCol,helpRow).getPiece() != null){
-                        System.out.println("something above and right me");
                         return false;
                     }
                     helpCol ++;
@@ -109,7 +104,6 @@ public class Queen extends ChessPiece{
             else {
                 for (helpRow = row - 1; helpRow > toRow; helpRow--) {
                     if (board.getSquare(col, helpRow).getPiece() != null) {
-                        System.out.println("something above me");
                         return false;
                     }
                 }
@@ -119,14 +113,12 @@ public class Queen extends ChessPiece{
             if(col > toCol) {
                 for (helpCol = col - 1; helpCol > toCol; helpCol--) {
                     if (board.getSquare(helpCol, row).getPiece() != null) {
-                        System.out.println("something on my left");
                         return false;
                     }
                 }
             }else{
                 for(helpCol = col +1;helpCol < toCol; helpCol++){
                     if(board.getSquare(helpCol,row).getPiece() != null){
-                        System.out.println("something on my right");
                         return false;
                     }
                 }

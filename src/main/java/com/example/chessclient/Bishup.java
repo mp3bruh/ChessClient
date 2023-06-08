@@ -53,7 +53,6 @@ public class Bishup extends ChessPiece{
                 helpCol = col -1;
                 while (helpCol > toCol && helpRow < toRow){
                     if(board.getSquare(helpCol,helpRow).getPiece() != null){
-                        System.out.println("something under and left me");
                         return false;
                     }
                     helpCol --;
@@ -65,7 +64,6 @@ public class Bishup extends ChessPiece{
                 helpCol = col +1;
                 while (helpCol < toCol && helpRow < toRow){
                     if(board.getSquare(helpCol,helpRow).getPiece() != null){
-                        System.out.println("something under and right me");
                         return false;
                     }
                     helpCol ++;
@@ -80,7 +78,6 @@ public class Bishup extends ChessPiece{
                 helpCol = col -1;
                 while (helpCol > toCol && helpRow > toRow){
                     if(board.getSquare(helpCol,helpRow).getPiece() != null){
-                        System.out.println("something above and left me");
                         return false;
                     }
                     helpCol --;
@@ -92,7 +89,6 @@ public class Bishup extends ChessPiece{
                 helpCol = col +1;
                 while (helpCol < toCol && helpRow > toRow){
                     if(board.getSquare(helpCol,helpRow).getPiece() != null){
-                        System.out.println("something above and right me");
                         return false;
                     }
                     helpCol ++;

@@ -150,7 +150,7 @@ public class ChessBoard extends GridPane {
                 // Retrieve the rook piece from the specified column and row
                 rookPiece = getPieceOnSquare(rookFromCol, toRow);
 
-                // Check if the rook piece is a valid rook and it hasn't moved before
+                // Check if the rook piece is a valid rook and if it hasn't moved before
                 if (rookPiece instanceof Rook && !rookPiece.hasMoved()) {
                     // Move the king to the target square
                     fromSquare.replacePiece(null);
