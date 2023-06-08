@@ -35,6 +35,23 @@ public class King extends ChessPiece {
         this.toRow = toRow;
         return checkIfLegalMove();
     }
+    public boolean isKingInCheck(int kingCol, int kingRow) {
+        // Check for threats from opponent pieces
+        for (int row = 1; row <= HelloController.HEIGHT; row++) {
+            for (int col = 1; col <= HelloController.WIDTH; col++) {
+                ChessPiece piece = board.getPieceOnSquare(col, row);
+                if (piece != null && piece.getColor() != color) {
+                    // Check if the piece can attack the king
+                    if (piece.isMoveToPositionLegal(kingCol, kingRow)) {
+                        System.out.println("Check!");
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
 
     @Override
     public boolean checkIfLegalMove() {
@@ -46,9 +63,20 @@ public class King extends ChessPiece {
             }
             return false;
         }
+        else{
+            for (int row = 1; row <= HelloController.HEIGHT; row++) {
+                for (int col = 1; col <= HelloController.WIDTH; col++) {
+                    ChessPiece piece = board.getPieceOnSquare(col, row);
+                    if (piece != null && piece.getColor() != color) {
+                        // Check if the piece can attack the king
+                        if (piece.isMoveToPositionLegal(toRow, toCol)) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
 
-        // Check if the piece moved through another piece
-        // ...
 
         return true;
     }

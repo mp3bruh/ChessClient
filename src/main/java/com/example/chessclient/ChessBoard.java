@@ -72,9 +72,6 @@ public class ChessBoard extends GridPane {
         ChessPiece piece = null;
         ChessSquare tempSquare;
 
-
-
-
         for (int rows = 1; rows <= HelloController.HEIGHT ; rows++) {
             for (int columns = 1; columns <= HelloController.WIDTH; columns++) {
                 //BLACK PIECES---->DOWN
@@ -176,25 +173,48 @@ public class ChessBoard extends GridPane {
         ChessSquare square = (ChessSquare) this.getChildren().get((row - 1) * 8 + (col - 1));
         return square.getPiece();
     }
+    public boolean isKingInCheck(int kingCol, int kingRow, int kingColor) {
+        // Check for threats from opponent pieces
+        for (int row = 1; row <= HelloController.HEIGHT; row++) {
+            for (int col = 1; col <= HelloController.WIDTH; col++) {
+                ChessPiece piece = getPieceOnSquare(col, row);
+                if (piece != null && piece.getColor() != kingColor) {
+                    // Check if the piece can attack the king
+                    if (piece.isMoveToPositionLegal(kingCol, kingRow)) {
+                        System.out.println("Check!");
+                        return true;
+                    }
+                }
+            }
+        }
 
-    public void move(int fromCol, int toCol, int fromRow, int toRow){
+        return false;
+    }
 
-        ChessPiece pieceFromOriginalPos;
-        pieceFromOriginalPos = getPieceOnSquare(fromCol,fromRow);
+    public void move(int fromCol, int toCol, int fromRow, int toRow) {
+        ChessPiece pieceFromOriginalPos = getPieceOnSquare(fromCol, fromRow);
 
         if (pieceFromOriginalPos instanceof King && ((King) pieceFromOriginalPos).isCastlingMove(toCol, toRow)) {
             castle(fromCol, toCol, fromRow, toRow);
             return;
         }
-        ChessSquare fromSquare = (ChessSquare) this.getChildren().get((fromRow-1)*8 + (fromCol -1));
-        ChessSquare toSquare = (ChessSquare) this.getChildren().get((toRow-1)*8 + (toCol -1));
+
+        ChessSquare fromSquare = (ChessSquare) this.getChildren().get((fromRow - 1) * 8 + (fromCol - 1));
+        ChessSquare toSquare = (ChessSquare) this.getChildren().get((toRow - 1) * 8 + (toCol - 1));
 
         if (pieceFromOriginalPos.isMoveToPositionLegal(toCol, toRow)) {
             fromSquare.replacePiece(null);
             toSquare.replacePiece(pieceFromOriginalPos);
+
+            // Check if the moved piece is the king and if the king is in check
+            if (pieceFromOriginalPos instanceof King) {
+                King king = (King) pieceFromOriginalPos;
+                if (isKingInCheck(toCol, toRow, king.getColor())) {
+                    System.out.println("Check!");
+                }
+            }
         }
-
-
     }
+
 
 }
