@@ -43,7 +43,6 @@ public class King extends ChessPiece {
                 if (piece != null && piece.getColor() != color) {
                     // Check if the piece can attack the king
                     if (piece.isMoveToPositionLegal(kingCol, kingRow)) {
-                        System.out.println("Check!");
                         return true;
                     }
                 }

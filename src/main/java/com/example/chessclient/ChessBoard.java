@@ -173,23 +173,6 @@ public class ChessBoard extends GridPane {
         ChessSquare square = (ChessSquare) this.getChildren().get((row - 1) * 8 + (col - 1));
         return square.getPiece();
     }
-    public boolean isKingInCheck(int kingCol, int kingRow, int kingColor) {
-        // Check for threats from opponent pieces
-        for (int row = 1; row <= HelloController.HEIGHT; row++) {
-            for (int col = 1; col <= HelloController.WIDTH; col++) {
-                ChessPiece piece = getPieceOnSquare(col, row);
-                if (piece != null && piece.getColor() != kingColor) {
-                    // Check if the piece can attack the king
-                    if (piece.isMoveToPositionLegal(kingCol, kingRow)) {
-                        System.out.println("Check!");
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
 
     public void move(int fromCol, int toCol, int fromRow, int toRow) {
         ChessPiece pieceFromOriginalPos = getPieceOnSquare(fromCol, fromRow);
@@ -205,14 +188,6 @@ public class ChessBoard extends GridPane {
         if (pieceFromOriginalPos.isMoveToPositionLegal(toCol, toRow)) {
             fromSquare.replacePiece(null);
             toSquare.replacePiece(pieceFromOriginalPos);
-
-            // Check if the moved piece is the king and if the king is in check
-            if (pieceFromOriginalPos instanceof King) {
-                King king = (King) pieceFromOriginalPos;
-                if (isKingInCheck(toCol, toRow, king.getColor())) {
-                    System.out.println("Check!");
-                }
-            }
         }
     }
 

@@ -11,6 +11,8 @@ public class GameThread extends Thread{
     private ChessSquare secondClicked = null;
     private ChessSquare fromSquare = null;
     private ChessSquare toSquare = null;
+    ChessPiece pieceFromOrgSquare = null;
+    ChessPiece pieceToReplace = null;
     private int clickedCounter = 0;
     public int moveCounter = 0;
     King whiteKing, blackKing;
@@ -58,7 +60,7 @@ public class GameThread extends Thread{
 
                                     ChessSquare toSquare = (ChessSquare) board.getChildren().get((secondClicked.getRow()-1)*8 + (secondClicked.getColumn() -1));
                                     //check if move is legal and if new square is occupied by same color piece and whose move it is
-                                    if(firstClicked.getPiece().isMoveToPositionLegal(secondClicked.getColumn(),secondClicked.getRow()) && !toSquare.isSquareOccupiedByColor(firstClicked.getPiece().getColor()) && firstClicked.getPiece().getColor()==(moveCounter%2) && !(whiteKing.isKingInCheck(whiteKing.col,whiteKing.row)) && !(blackKing.isKingInCheck(blackKing.col,blackKing.row))){
+                                    if(firstClicked.getPiece().isMoveToPositionLegal(secondClicked.getColumn(),secondClicked.getRow()) && !toSquare.isSquareOccupiedByColor(firstClicked.getPiece().getColor()) && firstClicked.getPiece().getColor()==(moveCounter%2)){
                                         movePossible=true;
                                     }
                                     else{
@@ -109,21 +111,22 @@ public class GameThread extends Thread{
         }
     }
     private void playMove() {
-
         fromSquare = firstClicked;
         toSquare = secondClicked;
 
         firstClicked.setToNotCLicked();
         firstClicked=null;
-
-        secondClicked.setToNotCLicked();
         secondClicked=null;
 
         clickedCounter=0;
-        moveCounter++;
+
+        pieceFromOrgSquare = fromSquare.getPiece();
+        pieceToReplace = toSquare.getPiece();
 
         Platform.runLater(()->{
             board.move(fromSquare.getColumn(),toSquare.getColumn(),fromSquare.getRow(),toSquare.getRow());
+            isInCheckAfterMove();
+
             movePossible = false;
 
             fromSquare = null;
@@ -131,5 +134,24 @@ public class GameThread extends Thread{
         });
 
 
+    }
+
+    private void isInCheckAfterMove() {
+        if(moveCounter%2==0 && whiteKing.isKingInCheck(whiteKing.col,whiteKing.row)){
+            fromSquare.replacePiece(pieceFromOrgSquare);
+            toSquare.replacePiece(pieceToReplace);
+
+            System.out.println("white king is in check");
+        } else if (moveCounter%2 == 1 && blackKing.isKingInCheck(blackKing.col,blackKing.row)) {
+            fromSquare.replacePiece(pieceFromOrgSquare);
+            toSquare.replacePiece(pieceToReplace);
+
+            System.out.println("black king is in check");
+        }
+        else{
+            toSquare.setToNotCLicked();
+
+            moveCounter++;
+        }
     }
 }

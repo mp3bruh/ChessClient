@@ -69,29 +69,28 @@ public class Pawn extends ChessPiece{
             if(col == toCol) {
                 for (helpRow = row + 1; helpRow <= toRow; helpRow++) {
                     if (board.getSquare(col, helpRow).getPiece() != null) {
-                        System.out.println("something under me");
                         return false;
                     }
                 }
             }
+            //check if able to capture piece
             else if(col < toCol) {
                 helpRow = row+1;
                 helpCol = col+1;
                 while (helpCol <= toCol && helpRow <= toRow) {
                     if (board.getSquare(helpCol, helpRow).getPiece() == null) {
-                        System.out.println("nothing under and right me");
                         return false;
                     }
                     helpCol++;
                     helpRow++;
                 }
             }
+            //check if able to capture piece
             else{
                 helpRow = row+1;
                 helpCol = col-1;
                 while (helpCol >= toCol && helpRow <= toRow) {
                     if (board.getSquare(helpCol, helpRow).getPiece() == null) {
-                        System.out.println("nothing under and left me");
                         return false;
                     }
                     helpCol--;
@@ -115,6 +114,7 @@ public class Pawn extends ChessPiece{
                     }
                 }
             }
+            //check if able to capture piece
             else if(col < toCol) {
                 helpRow = row-1;
                 helpCol = col+1;
@@ -126,6 +126,7 @@ public class Pawn extends ChessPiece{
                     helpRow--;
                 }
             }
+            //check if able to capture piece
             else{
                 helpRow = row-1;
                 helpCol = col-1;
