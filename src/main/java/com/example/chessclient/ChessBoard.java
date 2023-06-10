@@ -25,18 +25,18 @@ public class ChessBoard extends GridPane {
 
                 if(rows%2==0){
                     if(columns%2==0){
-                        squareColor = Color.GREEN;
+                        squareColor = Color.LIGHTGRAY.brighter();
                     }
                     else{
-                        squareColor = Color.LIGHTGRAY.brighter();
+                        squareColor = Color.GREEN;
                     }
                 }
                 else{
                     if(columns%2==0){
-                        squareColor = Color.LIGHTGRAY.brighter();
+                        squareColor = Color.GREEN;
                     }
                     else{
-                        squareColor = Color.GREEN;
+                        squareColor = Color.LIGHTGRAY.brighter();
                     }
                 }
 

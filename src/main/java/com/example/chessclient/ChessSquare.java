@@ -13,7 +13,6 @@ public class ChessSquare extends StackPane {
     private final Rectangle rect = new Rectangle(SQUARE_SIZE,SQUARE_SIZE);
     private final Color defaultColor;
     private ChessPiece piece;
-    private boolean isOccupied = false;
     private boolean isClicked = false;
     public ChessSquare(ChessBoard board,Color color, int row, int column) {
         this.row = row;
