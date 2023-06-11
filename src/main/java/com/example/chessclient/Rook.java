@@ -7,8 +7,6 @@ import javafx.scene.image.Image;
 public class Rook extends ChessPiece{
     int color;
     private ChessBoard board;
-
-
     public Rook(int color, int col, int row, ChessBoard board) {
         this.color = color;
         this.col = col;
